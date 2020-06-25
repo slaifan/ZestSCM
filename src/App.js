@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import BarChart from './components/BarChart'
+
+const testData = [5,10,15,20,25,5];
+const w = 500;
+const h = 400;
+const c = "green";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <h1> graph:</h1>
+        <BarChart data={testData} w={w} h={h} c={c}/>
     </div>
   );
 }
