@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
         <h1> graph:</h1>
-        <BarChart data={testData} w={w} h={h} c={c}/>
+        <BarChart/>
     </div>
   );
 }

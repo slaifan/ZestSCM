@@ -1,43 +1,69 @@
 import React, { Component } from 'react';
-import * as d3 from 'd3';
+import Chart from 'react-apexcharts';
 
 
 const BACKGROUND_COLOR = "#cccccc";
+const dates = ["January","February","March","April","May","June","July", "August", "September", "October", "November", "December"];
 
 class BarChart extends Component {
     constructor(props) {
         super(props);
-        this.myRef = React.createRef();
-    }
-
-    drawChart() {
-        const{data, w, h, c} = this.props;
-
-        const refAccess = d3.select(this.myRef.current)
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h)
-            .style("background-color", BACKGROUND_COLOR)
-            .style("padding", 10);
-
-        refAccess.selectAll("rect")
-            .data(data)
-            .enter()
-            .append("rect")
-            .attr("y", (d,i) => i * 70)
-            .attr("x", (d,i) => w-10 * d)
-            .attr("height", h/10)
-            .attr("width", (d,i) => w * 50)
-            .attr("fill", c)
-    }
-
-    componentDidMount() {
-        this.drawChart();
-    }
-
+    
+        this.state = {
+                options: {
+                    grid: {
+                        xaxis: {
+                            lines: {
+                                show: true
+                              }
+                        },
+                        yaxis: {
+                            lines: {
+                              show: false
+                            }
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: true
+                        }
+                    },
+                    chart: {
+                        id: "basic-bar"
+                    },
+                    xaxis: {
+                        categories: ['eggs', 'flour', 'sugar', 'milk', 'chocolate', 'apples', 'bananas'],
+                        labels: {
+                            formatter: function(value, timestamp, index) {
+                                return dates[value % 12 - 1];
+                              }
+                        }
+                    },
+                },
+                series: [
+                {
+                    name: "Stock",
+                    data: [13, 4, 4, 5, 4, 3, 2]
+                }
+                ]
+          };
+        }
+    
     render() {
-        return <div><div ref={this.myRef}></div></div>
+    return (
+        <div className="BarChart">
+        <Chart options={this.state.options} series={this.state.series} type="bar" width="900" />
+        </div>
+    );
     }
 }
+    
 
 export default BarChart;
+
+
+//// TODO:
+// HAVE THE DATE BE DYNAMIC AND ALL ARE DISPLAYED
+// VERTICAL BAR ON HOVER
+// ONCLICK HOVER BAR DISPLAY STACKED RED BARS
+// REMOVE DATA LABELS?
